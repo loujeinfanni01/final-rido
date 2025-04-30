@@ -18,6 +18,172 @@ body {
   height: 100%;
   
 }
+/* Styles pour le bouton de défilement circulaire avec texte rotatif */
+.scroll-circle-button {
+  position: absolute; /* Changed from absolute to fixed */
+  bottom: 80px;
+  left: 95%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 10;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity; /* Optimisation pour la performance de l'animation */
+}
+
+/* Conteneur pour le texte en rotation */
+.circle-text-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.circle-text-rotate {
+  width: 100%;
+  height: 100%;
+  animation: rotate 15s linear infinite;
+ 
+}
+
+.circle-text {
+  width: 105%;
+  height: 105%;
+  fill: #fff;
+
+}
+
+.circle-textpath {
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  text-transform: uppercase;
+
+}
+.vertical-back-to-top {
+  position: fixed;
+  top: 85%;
+  right: 2rem;
+  transform: translateY(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  color:white;
+ 
+  margin-bottom: 0px;
+  z-index: 100;
+  
+}
+
+.vertical-back-to-top:hover {
+  background-color: #000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%) translateX(-5px);
+}
+
+.vertical-back-to-top span {
+  display: block;
+  position: relative;
+  padding: 5px 0;
+}
+
+
+/* Ajout d'une animation subtile */
+@keyframes pulse {
+  0% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.05); }
+  100% { transform: translateY(-50%) scale(1); }
+}
+
+.vertical-back-to-top:hover {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circle-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #FF9800; /* Orange comme sur l'image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.circle-inner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.circle-inner svg {
+  stroke: #FF9800;
+  animation: bounce 2s infinite;
+}
+
+/* Animation pour la flèche qui rebondit */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(5px);
+  }
+  60% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(5px);
+  }
+  60% {
+    transform: translateY(3px);
+  }
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
 
 /* Style pour l'arrière-plan géométrique */
 /* Header Geometric Background Styles */
@@ -91,6 +257,7 @@ body {
     opacity: 1;
   }
 }
+
 
 .header-bg-svg {
   width: 100%;
@@ -503,12 +670,13 @@ p {
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
-  right: 2rem;
+  margin-left: 1300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+
 }
 
 .scroll-indicator-text {
@@ -529,27 +697,6 @@ p {
   color: #000;
 }
 
-.back-to-top {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background-color: #fff;
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.back-to-top:hover {
-  opacity: 1;
-}
 
 /* Media queries pour la responsivité */
 @media (max-width: 768px) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import CirclesGeometricBackground from './ServicesGeometricBackground';
 
 const ServicesSection = ({ servicesSectionRef }) => {
@@ -28,24 +28,54 @@ const ServicesSection = ({ servicesSectionRef }) => {
     }
   ];
 
+  // Create refs for each service item
+  const serviceRefs = useRef(services.map(() => React.createRef()));
+  const geometryRef = useRef(null);
+  
+  // Automatically trigger animations when component mounts
+  useEffect(() => {
+    // Add animation class to geometry element
+    if (geometryRef.current) {
+      geometryRef.current.classList.add('animate-on-scroll');
+    }
+    
+    // Add animation class to each service item with staggered delay
+    serviceRefs.current.forEach((ref, index) => {
+      if (ref.current) {
+        // Add small delay between each service animation
+        setTimeout(() => {
+          ref.current.classList.add('animate-service');
+        }, 300 + (index * 200)); // 300ms base delay + 200ms per item
+      }
+    });
+  }, []);
+
   return (
     <section ref={servicesSectionRef} className="section services-section">
       <div className="services-container">
-        {/* Geometric left side with circles from CirclesGeometricBackground */}
-        <div className="services-geometry">
+        {/* Geometric left side with circles */}
+        <div ref={geometryRef} className="services-geometry">
           <CirclesGeometricBackground />
         </div>
         
         {/* Services content on the right */}
         <div className="services-content">
-          {services.map((service) => (
-            <div key={service.id} className="service-item">
+          {services.map((service, index) => (
+            <div 
+              key={service.id} 
+              className="service-item"
+              ref={serviceRefs.current[index]}
+            >
               <h2>{service.title}</h2>
               <p>{service.description}</p>
               
               <div className="service-details">
-                {service.subServices.map((subService, index) => (
-                  <div key={index} className="sub-service">
+                {service.subServices.map((subService, idx) => (
+                  <div 
+                    key={idx} 
+                    className="sub-service"
+                    style={{ transitionDelay: `${0.3 + (idx * 0.1)}s` }}
+                  >
                     {subService}
                   </div>
                 ))}

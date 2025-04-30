@@ -1,16 +1,36 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ServicesSection from './ServicesSection';
 
 const HomePage = () => {
   // Create ref for the services section to scroll to
   const servicesSectionRef = useRef(null);
-
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  
   // Function to handle scrolling to services section
   const handleScrollToServices = () => {
     if (servicesSectionRef.current) {
       servicesSectionRef.current.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+  
+  // Update scroll position for animation and control back-to-top visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+      setShowBackToTop(window.scrollY > 300); // Show back to top after scrolling 300px
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Function to scroll back to top
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -24,7 +44,7 @@ const HomePage = () => {
             creativity. Together, let's embark on a remarkable journey where
             dreams become tangible realities.
           </p>
-          <div className="vertical-text">Home Page</div>
+          <div className="vertical-text" onClick={scrollToTop}>Home Page</div>
           <button onClick={handleScrollToServices} className="btn-primary-Services">
             OUR SERVICES
             <span className="btn-icon-services">
@@ -36,16 +56,39 @@ const HomePage = () => {
           </button>
         </div>
         
-        <div className="scroll-indicator">
-          <span>SCROLL DOWN</span>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5V19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M5 12L12 19L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        {/* Scroll circle button with rotation animation */}
+        <div 
+          className={`scroll-circle-button ${scrollPosition > 50 ? 'scroll-active' : ''}`} 
+          onClick={handleScrollToServices}
+          style={{
+            transform: `translateX(-50%) translateY(${Math.min(scrollPosition / 2, 50)}px) rotate(${scrollPosition / 2}deg)`,
+            opacity: Math.max(1 - scrollPosition / 300, 0.2)
+          }}
+        >
+          <div className="circle-text-container">
+            <div className="circle-text-rotate">
+              <svg viewBox="0 0 100 100" className="circle-text">
+                <path id="curve" fill="transparent" d="M 50, 50 m -45, 0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0"/>
+                <text>
+                  <textPath xlinkHref="#curve" className="circle-textpath">
+                    SCROLL DOWN • SCROLL DOWN • SCROLL DOWN •
+                  </textPath>
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div className="circle-outer">
+            <div className="circle-inner">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 8V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M8 12L12 16L16 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
         </div>
       </section>
       
-      {/* Services Section with geometric background */}
+      {/* Services Section with geometric background and animations */}
       <ServicesSection servicesSectionRef={servicesSectionRef} />
 
       {/* Contact CTA Section */}
@@ -70,12 +113,19 @@ const HomePage = () => {
           </Link>
         </div>
         <div className="back-to-top" style={{ backgroundColor: '#000', color: '#fff' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 19V5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M5 12L12 5L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          
         </div>
       </section>
+
+      {/* Vertical "Back to Top" text that appears when scrolling */}
+      {showBackToTop && (
+        <div 
+          className="vertical-back-to-top"
+          onClick={scrollToTop}
+        >
+          <span>BACK TO TOP</span>
+        </div>
+      )}
     </div>
   );
 };

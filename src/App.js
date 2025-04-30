@@ -4,12 +4,14 @@ import Navbar from './components/Navbar.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import Footer from './components/Footer.jsx';
 import GeometricBackground from './components/GeometricBackground.jsx';
+import ContactPage from './components/ContactPage.jsx';
 
-import ServicesPage from './pages/ServicesPage.jsx';
-import ContactForm from './pages/ContactPage.jsx';
+import ServicesPage from './components/ServicesPage.jsx';
+
 import './styles/global.css';
 import './styles/responsive.css';
 import './styles/ServicesGemetric.css';
+import './styles/Contact.css'
 
 const App = () => {
   const studioSectionRef = useRef(null);
@@ -19,7 +21,7 @@ const App = () => {
       <div className="app-container">
         {/* Fond géométrique animé */}
         <GeometricBackground />
-        
+       
         
         {/* Contenu principal */}
         <Navbar />
@@ -29,12 +31,14 @@ const App = () => {
             <Route path="/" element={
               <>
                 <HeroSection studioSectionRef={studioSectionRef} />
-           
+               
                 
               </>
             } />
+            
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/services" element={<ServicesPage />} />
-            <Route path="/contact" element={<ContactForm />} />
+            
           </Routes>
         </main>
         

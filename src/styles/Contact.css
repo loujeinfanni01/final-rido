@@ -1,0 +1,225 @@
+/* ContactPage.css - Version complète */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: white;
+
+}
+
+/* Header Styles */
+
+
+
+
+
+
+/* Breadcrumb */
+.breadcrumb {
+ 
+  padding: 1rem 3rem;
+  margin-top: 100px;
+}
+
+.breadcrumb-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.breadcrumb-link {
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.breadcrumb-separator,
+.breadcrumb-current {
+  color: #999;
+  text-transform: uppercase;
+}
+
+/* Hero Section */
+.hero-section-contact {
+  padding: 5rem 3rem;
+  text-align: center;
+  margin-top: 100px;
+  color: #000;
+
+}
+
+.hero-title-contact {
+  font-size: 5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: black;
+}
+
+/* Main Form Section */
+.main-content-contact {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem;
+  color: #000;
+  margin-top: 10px;
+}
+
+.form-section-contact {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .form-section {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Form Styles */
+.contact-form-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #999;
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bbb7b7;
+  padding: 0.5rem 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  background: transparent;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #000;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Button Styles */
+.send-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffaa33;
+  color: black;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-transform: uppercase;
+  margin-top: 2rem;
+}
+
+.send-button:hover {
+  background-color: #333;
+}
+
+.button-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin-left: 0.75rem;
+}
+
+.button-circle svg {
+  color: #000;
+}
+
+/* Contact Info */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 20px;
+}
+
+.info-section h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.info-section p {
+  color: #666;
+
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-item h3 {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.contact-item p {
+  color: #666;
+}
+
+/* Side Elements */
+.side-text {
+  position: fixed;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #999;
+}
+
+
+
+/* Let's Talk Version */
+.title-container {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 500;
+}
+
+.title-light {
+  font-weight: 300;
+}

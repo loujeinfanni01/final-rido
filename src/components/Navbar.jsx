@@ -50,13 +50,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="./MenuSection.tsx" className={getLinkClass('/services')} onClick={closeMenu}>
+              <Link to="/services" className={getLinkClass('../pages/ServicesPage.jsx')} onClick={closeMenu}>
                 Services
               </Link>
             </li>
             
             <li>
-              <Link to="../pages/ContactPage.jsx" className={getLinkClass('../pages/ContactPage.jsx')} onClick={closeMenu}>
+              <Link to="/contact" className={getLinkClass('/contact')} onClick={closeMenu}>
                Contact
               </Link>
             </li>
