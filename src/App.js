@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
-import HeroSection from './components/HeroSection.jsx';
+import Homepage from './components/HomePage.jsx';
 import Footer from './components/Footer.jsx';
 import GeometricBackground from './components/GeometricBackground.jsx';
 import ContactPage from './components/ContactPage.jsx';
-
+import PortfolioPage from './components/PortfolioPage.jsx';
 import ServicesPage from './components/ServicesPage.jsx';
 
 import './styles/global.css';
@@ -30,7 +30,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={
               <>
-                <HeroSection studioSectionRef={studioSectionRef} />
+                <Homepage studioSectionRef={studioSectionRef} />
                
                 
               </>
@@ -38,7 +38,7 @@ const App = () => {
             
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/services" element={<ServicesPage />} />
-            
+            <Route path="/Portfolio" element={<PortfolioPage />} />
           </Routes>
         </main>
         

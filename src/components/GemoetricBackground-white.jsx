@@ -1,11 +1,11 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { EdgesGeometry, BoxGeometry, IcosahedronGeometry, DodecahedronGeometry } from 'three';
+import {  EdgesGeometry,  DodecahedronGeometry } from 'three';
 import {  OrbitControls } from '@react-three/drei';
 
 
 // Composant pour créer un polyèdre en fil de fer
-const WireframePolyhedron = ({ position, rotation, scale, geometry, color = '#535555', lineWidth = 7 }) => {
+const WireframePolyhedron = ({ position, rotation, scale, geometry, color = '#EAEDEE', lineWidth = 7 }) => {
   const meshRef = useRef();
   
   // Animation de rotation lente
@@ -33,8 +33,7 @@ const WireframePolyhedron = ({ position, rotation, scale, geometry, color = '#53
 // Composant principal pour l'arrière-plan géométrique
 const GeometricBackground = () => {
   // Création de différentes géométries pour les polyèdres
-  const boxGeometry = useMemo(() => new BoxGeometry(1, 1, 1), []);
-  const icosaGeometry = useMemo(() => new IcosahedronGeometry(1, 0), []);
+
   const dodecaGeometry = useMemo(() => new DodecahedronGeometry(1, 0), []);
 
   return (
@@ -44,14 +43,7 @@ const GeometricBackground = () => {
         
         {/* Plusieurs polyèdres à différentes positions */}
         
-        <WireframePolyhedron 
-          position={[-6, -2, -3]} 
-          rotation={[0.5, 0.5, 0]} 
-          scale={[1.5, 1.5, 1.5]} 
-          geometry={icosaGeometry} 
-          lineWidth={5}
-        />
-        
+      
         <WireframePolyhedron 
           position={[5, 3, 2]} 
           rotation={[0.2, 0.3, 0.1]} 
@@ -60,13 +52,6 @@ const GeometricBackground = () => {
           lineWidth={4}
         />
         
-        <WireframePolyhedron 
-          position={[-3, -4, -8]} 
-          rotation={[0.4, 0.2, 0.1]} 
-          scale={[2, 2, 2]} 
-          geometry={icosaGeometry} 
-          lineWidth={3}
-        />
         
         {/* Contrôles désactivés pour l'utilisateur mais permettant une animation automatique */}
         <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />

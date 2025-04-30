@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ServicesSection from './ServicesSection';
+import GeometricBackground from './GeometricBackground';
 
 const HomePage = () => {
   // Create ref for the services section to scroll to
@@ -37,6 +38,11 @@ const HomePage = () => {
     <div className="home-page-container">
       {/* Hero Section */}
       <section className="hero-section">
+        {/* Geometric background */}
+        <div className="hero-geometry">
+          <GeometricBackground />
+        </div>
+        
         <div className="hero-content">
           <h1 className="hero-title">This is what <span>we do </span>best</h1>
           <p className="hero-description">
@@ -45,7 +51,7 @@ const HomePage = () => {
             dreams become tangible realities.
           </p>
           <div className="vertical-text" onClick={scrollToTop}>Home Page</div>
-          <button onClick={handleScrollToServices} className="btn-primary-Services">
+          <button onClick={handleScrollToServices} className="btn-primary-home">
             OUR SERVICES
             <span className="btn-icon-services">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,11 +64,10 @@ const HomePage = () => {
         
         {/* Scroll circle button with rotation animation */}
         <div 
-          className={`scroll-circle-button ${scrollPosition > 50 ? 'scroll-active' : ''}`} 
+          className={`scroll-circle-button ${scrollPosition > 50 ? 'active' : ''}`} 
           onClick={handleScrollToServices}
           style={{
-            transform: `translateX(-50%) translateY(${Math.min(scrollPosition / 2, 50)}px) rotate(${scrollPosition / 2}deg)`,
-            opacity: Math.max(1 - scrollPosition / 300, 0.2)
+            transform: `rotate(${scrollPosition / 2}deg)`, // Keep rotation based on scroll
           }}
         >
           <div className="circle-text-container">
@@ -94,20 +99,42 @@ const HomePage = () => {
       {/* Contact CTA Section */}
       <section className="section contact-cta-section" style={{ backgroundColor: '#fff', color: '#000' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ color: '#555', textAlign: 'right', marginBottom: '1rem' }}>
-            Looking to make your mark? We'll help you turn<br />
-            your project into a success story.
-          </p>
           <h2>
             Let's make an <span>impact</span><br />
             together. Ready <span>when you are</span>
           </h2>
-          <Link to="/contact" className="btn btn-primary-contact" style={{ marginTop: '2rem' }}>
+          <Link
+            to="/contact"
+            className="btn btn-primary-contact"
+            style={{ marginTop: "2rem" }}
+            onClick={() => {
+              // Force un petit délai pour s'assurer que la navigation a lieu d'abord
+              setTimeout(() => window.scrollTo(0, 0), 10);
+            }}
+          >
             CONTACT US
             <span className="btn-icon-contact">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 12H19"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M12 5L19 12L12 19"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </span>
           </Link>

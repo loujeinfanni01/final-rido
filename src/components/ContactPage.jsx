@@ -1,165 +1,227 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import "../styles/Contact.css";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
+
+  const [ setWindowWidth] = useState(window.innerWidth);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
     // Here you would typically send the data to your backend
+    // Show success message to user
+    alert("Message sent successfully!");
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
+  // Handle window resize for responsive design
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  },);
+
+  // Add scroll behavior for back-to-top button visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      const backToTop = document.querySelector(".contact-back-to-top");
+      if (backToTop) {
+        if (window.scrollY > 300) {
+          backToTop.style.display = "flex";
+        } else {
+          backToTop.style.display = "none";
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="page-container">
-      {/* Header */}
-      <header>
-        <a href="/" className="logo">A.</a>
-        <button className="menu-toggle">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </button>
-      </header>
-      
-      {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <div className="breadcrumb-inner">
-          <a href="/" className="breadcrumb-link">HOMEPAGE</a>
-          <span className="breadcrumb-separator">/</span>
-          <span className="breadcrumb-current">CONTACT</span>
+    <div className="contact-page-container">
+      {/* Navigation/Breadcrumb */}
+      <div className="contact-nav-breadcrumb">
+        <div className="contact-breadcrumb-wrapper">
+          <div className="contact-breadcrumb-links">
+            <a href="/" className="contact-breadcrumb-link">
+              HOMEPAGE
+            </a>
+            <span className="contact-breadcrumb-separator"> / </span>
+            <span className="contact-breadcrumb-current">CONTACT</span>
+          </div>
         </div>
       </div>
-      
+
       {/* Hero Section */}
-      <div className="hero-section-contact">
-        <h1 className="hero-title-contact ">Get in touch!</h1>
-      </div>
-      
-      {/* Main Content */}
-      <main className="main-content-contact">
-        <div className="title-container-contact">
-          <h2 className="title">Let's <span className="title-light">Talk</span></h2>
+      <div className="contact-hero-section">
+        <h1 className="contact-hero-title">Get in touch!</h1>
+        <div className="contact-send-message-button-wrapper">
+          <button
+            onClick={() =>
+              document
+                .getElementById("contact-form-section")
+                .scrollIntoView({ behavior: "smooth" })
+            }
+            className="contact-send-message-button"
+          >
+            <span className="contact-button-text">SEND MESSAGE</span>
+            <div className="contact-button-circle">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 5v14M19 12l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
         </div>
-        
-        <div className="form-contact">
-          {/* Contact Form */}
-          <div className="contact-form-contact">
-            <div className="input-group">
-              <label htmlFor="name" className="input-label">WHAT'S YOUR NAME</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-input"
-                value={formData.name}
-                onChange={handleChange}
-              />
+      </div>
+
+      {/* Contact Form Section */}
+      <div id="contact-form-section" className="contact-form-section">
+        <div className="contact-title-container">
+          <h2 className="contact-section-title">
+            Let's <span className="contact-title-light">Talk</span>
+          </h2>
+        </div>
+
+        <div className="contact-form-container">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="contact-form-content">
+            <div className="contact-input-row">
+              <div className="contact-input-group">
+                <label htmlFor="name" className="contact-input-label">
+                  WHAT'S YOUR NAME
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="contact-form-input"
+                  placeholder=""
+                  required
+                />
+              </div>
+
+              <div className="contact-input-group">
+                <label htmlFor="email" className="contact-input-label">
+                  YOUR EMAIL
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="contact-form-input"
+                  placeholder=""
+                  required
+                />
+              </div>
             </div>
-            
-            <div className="input-group-contact">
-              <label htmlFor="email" className="input-label">YOUR EMAIL</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="form-input"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-            
-            <div className="input-group-contact">
-              <label htmlFor="message" className="input-label">TELL US ABOUT OUR PROJECT</label>
+
+            <div className="contact-input-group">
+              <label htmlFor="message" className="contact-input-label">
+                TELL US ABOUT YOUR PROJECT
+              </label>
               <textarea
                 id="message"
                 name="message"
-                className="form-textarea"
                 value={formData.message}
                 onChange={handleChange}
                 rows="5"
+                className="contact-form-textarea"
+                placeholder=""
+                required
               ></textarea>
             </div>
-            
-            <div>
-              <button 
-                onClick={handleSubmit}
-                className="send-button"
-              >
+
+            <div className="contact-submit-container">
+              <p className="contact-privacy-note">
+                * We promise not to disclose your personal information to third
+                parties.
+              </p>
+              <button type="submit" className="contact-submit-button">
                 SEND MESSAGE
-                <span className="button-circle">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 4L20 12L12 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <span className="contact-submit-button-circle">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 12h14m-5-5l5 5-5 5"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </span>
               </button>
             </div>
-          </div>
-          
-          {/* Contact Info */}
-          <div className="contact-info">
-            <div className="info-section">
-              <h2>Let's talk</h2>
-              <p>
-                We'd love to hear from you. Fill out the form and we'll get back to you as soon as possible.
-              </p>
-            </div>
-            
-            <div className="contact-details">
-              <div className="contact-item">
-                <h3>Email</h3>
-                <p>info@agency.com</p>
-              </div>
-              
-              <div className="contact-item">
-                <h3>Phone</h3>
-                <p>+1 (234) 567-8900</p>
-              </div>
-              
-              <div className="contact-item">
-                <h3>Address</h3>
-                <div>
-                  <p>
-                    <strong>Headquarters</strong><br />
-                    123 Design Street,<br />
-                    New York, NY 10001
-                  </p>
-                  <br />
-                  <p>
-                    <strong>Europe Office</strong><br />
-                    456 Creative Avenue,<br />
-                    Berlin, Germany
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
-      </main>
-      
-      {/* Side Text */}
-      <div className="side-text">
-        <span>CONTACT</span>
       </div>
-      
+
+      {/* Side Text - Only visible on larger screens */}
+      <div className="contact-side-text">CONTACT</div>
+
       {/* Back to Top Button */}
-      <div className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+      <div className="contact-back-to-top">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="contact-back-to-top-button"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 19V5M12 5L5 12M12 5L19 12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <span className="contact-back-to-top-text">BACK TO TOP</span>
       </div>
     </div>
   );

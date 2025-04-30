@@ -37,6 +37,21 @@
   height: 100%;
 }
 
+/* Services Content Area */
+.services-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem; /* Added significant spacing between service items */
+}
+
+/* Service Items */
+.service-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  padding-bottom: 2rem; /* Additional padding at the bottom of each item */
+  position: relative;
+}
 
 /* Animation for service items */
 .service-item.animate-service {
@@ -194,56 +209,17 @@
     transform: translateX(0);
   }
 }
-.read-more-btn::before {
+
+/* Optional divider between service items */
+.service-item:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 170, 51, 0.1);
-  transition: left 0.7s ease-out;
-}
-
-.service-item.animate-service .read-more-btn:hover::before {
+  bottom: 0;
   left: 0;
-}
-
-.arrow-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: #333;
-  margin-left: 0.75rem;
-  transition: transform 0.3s ease;
-}
-
-.read-more-btn:hover {
-  background-color: #333;
-}
-
-.read-more-btn:hover .arrow-icon {
-  transform: translateX(3px);
-}
-
-.service-item.animate-service .arrow-icon {
-  animation: subtlePulse 2s infinite ease-in-out;
-  animation-delay: 1.2s;
-}
-
-@keyframes subtlePulse {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(4px);
-  }
-  100% {
-    transform: translateX(0);
-  }
+  width: 100%;
+  max-width: 100px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Media Queries */
@@ -255,6 +231,10 @@
   .services-geometry {
     max-width: 100%;
     height: 400px;
+  }
+  
+  .services-content {
+    gap: 4rem; /* Slightly reduce spacing on smaller screens */
   }
 }
 
@@ -269,6 +249,10 @@
   
   .services-geometry {
     height: 300px;
+  }
+  
+  .services-content {
+    gap: 3rem; /* Further reduce spacing on mobile */
   }
 }
 

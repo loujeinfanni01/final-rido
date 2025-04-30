@@ -1,15 +1,15 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import {  EdgesGeometry,  IcosahedronGeometry, DodecahedronGeometry } from 'three';
-import {  OrbitControls } from '@react-three/drei';
-
+import { EdgesGeometry, IcosahedronGeometry, DodecahedronGeometry, Mesh } from 'three';
+import { OrbitControls } from '@react-three/drei';
 
 // Composant pour créer un polyèdre en fil de fer
-const WireframePolyhedron = ({ position, rotation, scale, geometry, color = '#535555', lineWidth = 7 }) => {
-  const meshRef = useRef();
+const WireframePolyhedron = ({ position, rotation, scale, geometry, color = '#ffffff', lineWidth = 7 }) => {
+  // Add proper typing for the ref to fix the rotation property error
+  const meshRef = useRef<Mesh>(null);
   
   // Animation de rotation lente
-  useFrame((state) => {
+  useFrame(() => {
     if (meshRef.current) {
       meshRef.current.rotation.x += 0.001;
       meshRef.current.rotation.y += 0.001;
@@ -33,7 +33,6 @@ const WireframePolyhedron = ({ position, rotation, scale, geometry, color = '#53
 // Composant principal pour l'arrière-plan géométrique
 const GeometricBackground = () => {
   // Création de différentes géométries pour les polyèdres
- 
   const icosaGeometry = useMemo(() => new IcosahedronGeometry(1, 0), []);
   const dodecaGeometry = useMemo(() => new DodecahedronGeometry(1, 0), []);
 
@@ -43,7 +42,6 @@ const GeometricBackground = () => {
         <ambientLight intensity={0.5} />
         
         {/* Plusieurs polyèdres à différentes positions */}
-        
         <WireframePolyhedron 
           position={[-6, -2, -3]} 
           rotation={[0.5, 0.5, 0]} 
